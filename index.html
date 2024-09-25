@@ -100,21 +100,26 @@
     </div>
     <script>
         document.getElementById('fileInput').addEventListener('change', function(event) {
-            const file = event.target.files;
-            console.log('Selected file:', file);
-            if (file && file.size <= 50 * 1024 * 1024) { // 50 MB limit
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const base64String = e.target.result;
-                    console.log('Base64 string:', base64String);
-                    document.getElementById('base64Output').value = base64String;
-                };
-                reader.onerror = function(error) {
-                    console.error('Error reading file:', error);
-                };
-                reader.readAsDataURL(file);
+            const file = event.target.files[0]; // Access the first file in the list
+            if (file) {
+                const fileSizeMB = file.size / (1024 * 1024);
+                console.log('File size (MB):', fileSizeMB);
+                if (fileSizeMB <= 50) { // 50 MB limit
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const base64String = e.target.result;
+                        console.log('Base64 string:', base64String);
+                        document.getElementById('base64Output').value = base64String;
+                    };
+                    reader.onerror = function(error) {
+                        console.error('Error reading file:', error);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('File is too large!');
+                }
             } else {
-                alert('File is too large or not selected!');
+                alert('No file selected!');
             }
         });
 
