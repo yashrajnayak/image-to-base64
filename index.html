@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image to Base64 and Base64 to Image Converter</title>
+    <title>Image to Base64 & Base64 to Image Converter</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -11,6 +11,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
@@ -25,6 +26,7 @@
             max-width: 500px;
             width: 100%;
             box-sizing: border-box;
+            margin-bottom: 20px;
         }
 
         h1 {
@@ -84,9 +86,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>Image to Base64 & Base64 to Image Converter</h1>
+        <h1>Image to Base64 Encoder</h1>
         <input type="file" id="fileInput" accept="image/*">
         <textarea id="base64Output" readonly placeholder="Base64 encoded string will appear here..."></textarea>
+    </div>
+    <div class="container">
+        <h1>Base64 to Image Decoder</h1>
         <input type="text" id="base64Input" placeholder="Paste Base64 string here...">
         <button id="decodeButton">Decode Base64 to Image</button>
         <img id="decodedImage" alt="Decoded Image" style="display:none;">
