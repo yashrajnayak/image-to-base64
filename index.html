@@ -35,13 +35,14 @@
             color: #333;
         }
 
-        input[type="file"], textarea, input[type="text"] {
+        input[type="file"], textarea, input[type="text"], button {
             margin-bottom: 20px;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             width: 100%;
             box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
         }
 
         textarea {
@@ -56,16 +57,17 @@
             border-radius: 4px;
         }
 
-        input[type="file"]::file-selector-button {
+        input[type="file"]::file-selector-button, button {
             padding: 10px 20px;
             border: none;
             background-color: #007BFF;
             color: white;
             border-radius: 4px;
             cursor: pointer;
+            font-family: 'Roboto', sans-serif;
         }
 
-        input[type="file"]::file-selector-button:hover {
+        input[type="file"]::file-selector-button:hover, button:hover {
             background-color: #0056b3;
         }
 
@@ -87,12 +89,12 @@
 <body>
     <div class="container">
         <h1>Image to Base64 Encoder</h1>
-        <input type="file" id="fileInput" accept="image/*">
-        <textarea id="base64Output" readonly placeholder="Base64 encoded string will appear here..."></textarea>
+        <input type="file" id="fileInput" accept="image/*" aria-label="Select an image to encode to Base64">
+        <textarea id="base64Output" readonly placeholder="Base64 encoded string will appear here..." aria-describedby="base64Output"></textarea>
     </div>
     <div class="container">
         <h1>Base64 to Image Decoder</h1>
-        <input type="text" id="base64Input" placeholder="Paste Base64 string here...">
+        <input type="text" id="base64Input" placeholder="Paste Base64 string here..." aria-label="Paste Base64 string here">
         <button id="decodeButton">Decode Base64 to Image</button>
         <img id="decodedImage" alt="Decoded Image" style="display:none;">
     </div>
@@ -119,8 +121,13 @@
         document.getElementById('decodeButton').addEventListener('click', function() {
             const base64String = document.getElementById('base64Input').value;
             if (base64String) {
-                document.getElementById('decodedImage').src = base64String;
-                document.getElementById('decodedImage').style.display = 'block';
+                try {
+                    document.getElementById('decodedImage').src = base64String;
+                    document.getElementById('decodedImage').style.display = 'block';
+                } catch (error) {
+                    alert('Invalid Base64 string!');
+                    console.error('Error decoding Base64 string:', error);
+                }
             } else {
                 alert('Please enter a valid Base64 string!');
             }
